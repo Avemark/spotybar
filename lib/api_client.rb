@@ -1,6 +1,6 @@
 class ApiClient
-  AUTH_URL = 'https://accounts.spotify.com/api/token'
-  API_URL = 'https://api.spotify.com/v1/tracks/'
+  AUTH_URL = 'https://accounts.spotify.com/api/token'.freeze
+  API_URL = 'https://api.spotify.com/v1/tracks/'.freeze
 
   def initialize(song_id)
     @song_id = song_id
@@ -38,6 +38,8 @@ class ApiClient
   end
 
   def credentials
+    raise StandardError, 'Missing api credentials' unless File.exist?('credentials.json')
+
     @credentials ||= JSON.parse(File.read('credentials.json'))
   end
 end
