@@ -1,0 +1,16 @@
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'app/views/**/*.slim'
+Layout/TrailingBlankLines:
+  Exclude:
+    - 'app/views/**/*.slim'
+Layout/InitialIndentation:
+  Exclude:
+    - 'app/views/**/*.slim'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/LineLength:
+  Max: 120
+AllCops:
+  Severity: warning

@@ -1,0 +1,20 @@
+#! /usr/bin/env ruby
+
+require "pathname"
+
+project_root = File.expand_path("../../", Pathname.new(__FILE__).realpath)
+ENV["BUNDLE_GEMFILE"] ||= "#{project_root}/Gemfile"
+
+require 'bundler'
+Bundler.require
+
+require "#{project_root}/lib/spotybar"
+Spotybar.initialize
+
+case ARGV[0]
+when 'console'
+  Pry.prompt = proc { "  spotybar > " } if Pry.config.prompt_name == "pry"
+  Pry.start
+else
+  puts Spotybar.current_song
+end
