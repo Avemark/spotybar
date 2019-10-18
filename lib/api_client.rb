@@ -1,6 +1,7 @@
 class ApiClient
   AUTH_URL = 'https://accounts.spotify.com/api/token'.freeze
   API_URL = 'https://api.spotify.com/v1/tracks/'.freeze
+  CREDENTIAL_FILE = __dir__.sub('lib', 'credentials.json')
 
   def initialize(song_id)
     @song_id = song_id
@@ -21,7 +22,7 @@ class ApiClient
   end
 
   def body
-    @body ||= JSON.parse(RestClient.get("#{API_URL}#{song_id}", { Authorization: "Bearer #{access_token}" }).body)
+    @body ||= JSON.parse(RestClient.get("#{API_URL}#{@song_id}", { Authorization: "Bearer #{access_token}" }).body)
   end
 
   def access_token
@@ -38,8 +39,8 @@ class ApiClient
   end
 
   def credentials
-    raise StandardError, 'Missing api credentials' unless File.exist?('credentials.json')
+    raise StandardError, 'Missing api credentials' unless File.exist?(CREDENTIAL_FILE)
 
-    @credentials ||= JSON.parse(File.read('credentials.json'))
+    @credentials ||= JSON.parse(File.read(CREDENTIAL_FILE))
   end
 end

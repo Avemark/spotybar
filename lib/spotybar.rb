@@ -13,14 +13,18 @@ class Spotybar
 
     def current_song
       dbus = Dbus.new
-      dbus.to_s || ApiClient.new(dbus.song_id).to_s
+      dbus.to_s || ApiClient.new(dbus.track_id).to_s
     end
 
     private
 
+    def root_dir
+      File.expand_path("../../", Pathname.new(__FILE__).realpath)
+    end
+
     def initialize_loader
       Zeitwerk::Loader.new.tap do |loader|
-        loader.push_dir 'lib'
+        loader.push_dir root_dir + '/lib'
         loader.enable_reloading
         loader.setup
       end
